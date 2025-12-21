@@ -1,132 +1,196 @@
-const username = "iMarcraft"; // GitHub username
+const baseUrl = "https://api.github.com/"; 
+const username = "iMarcraft";
 
-let repos = []; // array to store repository data
-let repoImgUrl = ""; // variable to store the image of the repository
+let numOfRepos = 2; // Number of repositories to display
+let firstTimeToggle = true;
 
-const aboutSection = document.getElementById('about'); // select the about section
+// terminal variables
+const terminal = document.getElementById('terminal-form');
+const terminalLoadTime = 3000;
+const version = "1.0.0";
+const welcomeMsg = `Welcome to my portfolio [Version ${version}]`;
+const promptText = "C:\\Users\\Marcus>";
+let currentInput = null;
 
-let typingInterval; // variable to store the typing interval
+document.addEventListener("DOMContentLoaded", () => {
 
-fetch(`https://api.github.com/users/${username}/repos`)
-    .then((response) => response.json())    // parse the response as JSON
-    .then((data) => {
-        repos = data; // store the fetched data in the repos array        
-        setupHoverListeners(); // call the function to display repositories
-    })
-    .catch((error) => console.error("Error fetching repositories:", error)); // handle errors
+    
+    buildProjectCards();
 
-function setupHoverListeners() {
-    const projectCards = document.querySelectorAll('.project-card'); // select all project cards
+    // prevent form submit reloads
+    terminal.addEventListener('submit', (e) => e.preventDefault());
 
-    projectCards.forEach(card => {
-        let repoName = card.firstElementChild.getAttribute('name'); // get the name of the repository from the card
-        const repo = repos.find(repo => repo.name === repoName); // find the repository in the repos array
-        card.setAttribute("href", `${repo.html_url}`)
+    setTimeout(() => {
 
-        card.addEventListener('mouseenter', () => {
-            if (repo) {
-                // add typing animation to the terminal
-                typeInTerminal(repo.name);
-                loadImageFromReadme(repo);
-            }
-        })
+        // Make the terminal container clickable to focus the active input
+        const terminalWindow = document.getElementById('terminal-window');
+        if (terminalWindow) {
+            terminalWindow.addEventListener('click', () => {
+                if (currentInput) currentInput.focus();
+                else displayInTerminal(promptText, true);
+            });
+    
+            // indicate this is a text input area
+            terminalWindow.style.cursor = 'text';
+        }
+    }, terminalLoadTime * 1.5)
+});
 
-        card.addEventListener('mouseleave', () => {
-            clearRepoDisplay(); // clear the displayed repository information
-            clearTerminal(); // clear the terminal text
-            clearInterval(typingInterval); // clear the typing interval
-        })
-    })
+function buildProjectCards() {
+
+    for (let i = 0; i < numOfRepos; i++) {
+        fetchUserRepo(baseUrl + 'users/' + username + '/repos', i);
+    }
+
 }
 
-function typeInTerminal(repoName) {
-    const terminalText = document.querySelector('.terminal-typing'); // select the terminal text element
+async function fetchUserRepo(url, index) {
 
-    terminalText.textContent = ''; // clear previous
-    let i = 0; // initialize index
+    let repoInfo;
+    let repoImage;
+    
+    // Fetch Repo Info
+    let response = await fetch(url);
+    if (!response.ok)
+        throw new Error(`HTTP error! status: ${response.status}`);
 
-    clearInterval(typingInterval); // clear any previous typing interval
+    let data = await response.json();
+    repoInfo = data[index];    
 
-    typingInterval = setInterval(() => {
-        if (i < repoName.length) {
-            terminalText.textContent += repoName[i++]; // add one character at a time
-        }
-        else {
-            clearInterval(typingInterval); // stop the interval when done
-        }
-    }, 35); // typing speed
+    // Fetch Repo Image from README.md
+    response = await fetch(baseUrl + 'repos/' + username + '/' + repoInfo.name + '/readme');
+    if (!response.ok)
+        throw new Error(`HTTP error! status: ${response.status}`);
+
+    data = await response.json();
+    const readmeContentUrl = data.download_url; // Direct link to raw README content
+
+    const markdownResponse = await fetch(readmeContentUrl);
+    const markdown = await markdownResponse.text();
+
+    const regex = /!\[.*\]\((.*?)\)/; // Markdown image pattern
+    const match = markdown.match(regex);
+
+    if (match && match[1]) {
+        repoImage = match[1];
+    }
+    
+    addProjectCard(repoInfo, repoImage);
 }
 
-function clearTerminal() {
-    const terminalText = document.querySelector('.terminal-typing'); // select the terminal text element
-    terminalText.textContent = ''; // clear the terminal text
+function addProjectCard(repoInfo, repoImage) {
+
+    let card = document.createElement('div');
+
+    card.className = 'card my-2 position-relative';
+    card.style.width = '30%';
+    card.innerHTML = 
+    `<img src="${repoImage}" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">${repoInfo.name}</h5>
+        <p class="card-text">${repoInfo.description}</p>
+        <a href="${repoInfo.html_url}" class="btn btn-primary">Go to repo</a>
+    </div>
+    `;
+
+    document.getElementById('projects-section').appendChild(card);
 }
 
-async function loadImageFromReadme(repo) {
-    try {
-        const readmeApiUrl = `https://api.github.com/repos/${username}/${repo.name}/readme`;
-        const response = await fetch(readmeApiUrl);
+function toggleProjectView() {
+    const projectCardView = document.getElementById('project-cards-container');
+    const projectTerminalView = document.getElementById('project-terminal-container');
 
-        if (!response.ok) throw new Error(`README not found for ${repo.name}`);
+    projectCardView.style.display = projectCardView.style.display === 'none' ? 'block' : 'none';
+    projectTerminalView.style.display = projectTerminalView.style.display === 'none' ? 'block' : 'none';
 
-        const data = await response.json();
-        const readmeContentUrl = data.download_url; // Direct link to raw README content
-
-        const markdownResponse = await fetch(readmeContentUrl);
-        const markdown = await markdownResponse.text();
-
-        const regex = /!\[.*?\]\((.*?)\)/; // Markdown image pattern
-        const match = markdown.match(regex);
-
-        if (match && match[1]) {
-            repoImgUrl = match[1];
-            displayRepo(repo);
-        } else {
-            console.log(`No image found in README for ${repo.name}`);
-        }
-    } catch (error) {
-        console.error(`Failed to load README for ${repo.name}:`, error);
+    if (firstTimeToggle) {
+        firstTimeToggle = false;
+        displayInTerminal(welcomeMsg, false);
+        setTimeout( () => {
+            displayInTerminal(promptText, true)
+        }, terminalLoadTime);
     }
 }
 
+function displayInTerminal(text, isPrompt) {
 
-function displayRepo(repo) {
-    setInterval(() => {
-        aboutSection.style.backgroundImage = `url(${repoImgUrl})`; // update the background image every second
-    })
+    let parent = document.createElement('div');
+    parent.className = 'd-flex align-items-start flex-wrap mb-1';
 
-    aboutSection.style.backgroundSize = "contain"; // set the background size to cover
-    aboutSection.style.backgroundRepeat = "no-repeat"; // set the background repeat to no-repeat
-    aboutSection.style.backgroundPosition = "center"; // set the background position to center
-    aboutSection.style.opacity = ".5"; // set the opacity to 0.5
-    aboutSection.style.transition = `opacity 0.5s url(${repoImgUrl})`; // set the transition for opacity change
-    aboutSection.style.display = "block"; // remove flex display from the about section
-    aboutSection.innerHTML = `
-    <h3 class="repo-name">${repo.name}</h3>
-    <p class="repo-description">${repo.description || "No description available."}</p>
-    `;
+    let prompt = document.createElement('label');
+    prompt.className = 'terminal-line';
+
+    if (isPrompt) {
+        prompt.textContent = text;
+        let inputField = document.createElement('input');
+
+        inputField.setAttribute('type', 'text');
+        inputField.setAttribute('class', 'bg-body-tertiary ms-2 flex-grow-1');  // stylize input element
+        inputField.setAttribute('style', 'border: none; outline: none;')
+        inputField.setAttribute('autocomplete', 'off');
+        inputField.setAttribute('spellcheck', 'false');
+
+        parent.appendChild(prompt);
+        parent.appendChild(inputField);
+
+        terminal.appendChild(parent);
+
+        currentInput = inputField;
+        inputField.focus();
+        scrollToBottom();
+
+        // Handle Enter: echo command and create new prompt line
+        inputField.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const value = inputField.value;
+
+                // Replace the input line with a static echoed line
+                const staticLine = document.createElement('div');
+                staticLine.className = 'row terminal-line';
+                const staticLabel = document.createElement('label');
+                staticLabel.className = 'terminal-line';
+                staticLabel.textContent = prompt.textContent + value;
+                staticLine.appendChild(staticLabel);
+                parent.replaceWith(staticLine);
+
+                currentInput = null;
+
+                // Create a new prompt line
+                setTimeout(() => {
+                    displayInTerminal(promptText, true);
+                    scrollToBottom();
+                }, 0);
+            }
+        });
+
+    } else {
+        parent.appendChild(prompt);
+        terminal.appendChild(parent);
+
+        typeLoadText(text, prompt, 45);
+    }
 }
 
-function clearRepoDisplay() {
-    repoImgUrl = ""; // clear the image URL
-    aboutSection.style.backgroundImage = ""; // clear the background image of the about section
-    aboutSection.style.backgroundSize = ""; // clear the background size of the about section
-    aboutSection.style.display = "flex"; // set the display to flex for the about section
-    aboutSection.style.opacity = "1"; // set the opacity to 1 for the about section
-    aboutSection.innerHTML = `
-    <div class="about-text">
-        <h2 class="header">It's me, Marcus!</h2>
-        <p class="description">
-            I aspire to change the world with my crafts, 
-            one project at a time. With an exceptional 
-            understanding of computer science, I'm off 
-            to building not only projects, but also my 
-            experience. Cheers to contributing to forming a
-            better world through technology!
-        </p>
-    </div>
-    <div class="about-image-container">
-        <img src="images/marcus.png" alt="Marcus Laguerre" class="about-image">
-    </div>
-    `;
+function typeLoadText(text, prompt, speed) {
+
+    let i = 0; // initialize index
+
+    let typingInterval = setInterval(() => {
+        if (i < text.length) {
+            prompt.textContent += text.charAt(i++); // add one character at a time
+            scrollToBottom();
+        }
+        else {
+            clearInterval(typingInterval); // stop the interval
+            scrollToBottom();
+        }
+    }, speed);
+}
+
+function scrollToBottom() {
+    const terminalWindow = document.getElementById('terminal-window');
+    if (terminalWindow) {
+        terminalWindow.scrollTop = terminalWindow.scrollHeight;
+    }
 }

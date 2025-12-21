@@ -5,11 +5,11 @@ let numOfRepos = 2; // Number of repositories to display
 let firstTimeToggle = true;
 
 // terminal variables
-const terminal = document.getElementById('terminal-form');
+const terminal = document.getElementById('terminal-window');
 const terminalLoadTime = 3000;
 const version = "1.0.0";
 const welcomeMsg = `Welcome to my portfolio [Version ${version}]`;
-const promptText = "C:\\Users\\Marcus>";
+let promptText = "C:\\Users\\Marcus>";
 let currentInput = null;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -28,6 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
             terminalWindow.addEventListener('click', () => {
                 if (currentInput) currentInput.focus();
                 else displayInTerminal(promptText, true);
+
+                placeCursorAtEnd(currentInput)
             });
     
             // indicate this is a text input area
@@ -115,52 +117,71 @@ function toggleProjectView() {
 function displayInTerminal(text, isPrompt) {
 
     let parent = document.createElement('div');
-    parent.className = 'd-flex align-items-start flex-wrap mb-1';
+    parent.className = 'd-flex position-relative align-items-start flex-wrap mb-1';
 
-    let prompt = document.createElement('label');
-    prompt.className = 'terminal-line';
+    let prompt = document.createElement('span');
 
     if (isPrompt) {
         prompt.textContent = text;
-        let inputField = document.createElement('input');
+        let inputField = document.createElement('span');
 
-        inputField.setAttribute('type', 'text');
-        inputField.setAttribute('class', 'bg-body-tertiary ms-2 flex-grow-1');  // stylize input element
-        inputField.setAttribute('style', 'border: none; outline: none;')
-        inputField.setAttribute('autocomplete', 'off');
-        inputField.setAttribute('spellcheck', 'false');
-
+        inputField.textContent = ' '.repeat(text.length);
+        inputField.style.whiteSpace = 'pre-wrap';
+        inputField.style.outline = 'none';
+        inputField.className = 'position-absolute start-0';
+        inputField.style.wordBreak = 'break-all';
+        inputField.contentEditable = "true";
+        inputField.spellcheck = false;
+        
         parent.appendChild(prompt);
         parent.appendChild(inputField);
-
+        
         terminal.appendChild(parent);
-
+        
         currentInput = inputField;
         inputField.focus();
-        scrollToBottom();
+        placeCursorAtEnd(inputField);
+        // scrollToBottom();
 
         // Handle Enter: echo command and create new prompt line
         inputField.addEventListener('keydown', (e) => {
+            const sel = window.getSelection();
+            const caretPos = sel.focusOffset;
+            
             if (e.key === 'Enter') {
                 e.preventDefault();
-                const value = inputField.value;
+                const rawInput = inputField.textContent.slice(promptText.length);
 
-                // Replace the input line with a static echoed line
-                const staticLine = document.createElement('div');
-                staticLine.className = 'row terminal-line';
-                const staticLabel = document.createElement('label');
-                staticLabel.className = 'terminal-line';
-                staticLabel.textContent = prompt.textContent + value;
-                staticLine.appendChild(staticLabel);
-                parent.replaceWith(staticLine);
+                if (rawInput === 'clear') {
+                    terminal.innerHTML = ''; // clear terminal
+                }
+                else {
 
-                currentInput = null;
+                    // Replace the input line with a static echoed line
+                    const staticLine = document.createElement('div');
+
+                    // Preserve terminal-like wrapping
+                    staticLine.style.wordBreak = 'break-all';
+
+                    parent.replaceWith(staticLine);
+                    staticLine.textContent = promptText + rawInput;
+                    currentInput = null;
+                }
 
                 // Create a new prompt line
                 setTimeout(() => {
                     displayInTerminal(promptText, true);
                     scrollToBottom();
                 }, 0);
+            }
+            else if (e.key === ('Backspace') && caretPos <= text.length) {
+                e.preventDefault();
+            }
+            else if (e.key === ('ArrowLeft') && caretPos <= text.length) {
+                e.preventDefault();
+            }
+            else if (e.key === ('ArrowUp') && caretPos <= text.length) {
+                e.preventDefault();
             }
         });
 
@@ -190,7 +211,20 @@ function typeLoadText(text, prompt, speed) {
 
 function scrollToBottom() {
     const terminalWindow = document.getElementById('terminal-window');
-    if (terminalWindow) {
+    if (!terminalWindow) return;
+
+    // Only scroll if content exceeds container height
+    if (terminalWindow.scrollHeight > terminalWindow.clientHeight) {
         terminalWindow.scrollTop = terminalWindow.scrollHeight;
     }
+
+}
+
+function placeCursorAtEnd(element) {
+    const range = document.createRange();
+    const sel = window.getSelection();
+    range.selectNodeContents(element);
+    range.collapse(false);
+    sel.removeAllRanges();
+    sel.addRange(range);
 }

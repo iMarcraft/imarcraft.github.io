@@ -7,7 +7,7 @@ const externalUsers = [];
 
 let username = users[0];
 
-let repos = [];
+let repos;
 let numOfRepos = 6; // Number of repositories to display
 let firstTimeToggle = true;
 
@@ -67,27 +67,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.querySelectorAll('.reveal').forEach(el => {
             observer.observe(el);
         });
-    }, 2000);
+    }, 2500);
     
     
     // prevent form submit reloads
     terminal.addEventListener('submit', (e) => e.preventDefault());
-    
-    // Make the terminal container clickable to focus the active input
-    const terminalWindow = document.getElementById('terminal-window');
-    if (terminalWindow) {
-        terminalWindow.addEventListener('click', () => {
-            if (currentInput) currentInput.focus();
-            
-            placeCursorAtEnd(currentInput)
-            
-        });
-        
-        // indicate this is a text input area
-        terminalWindow.style.cursor = 'text';
-    }
 
-    // reveal(document.getElementById('skills-container'));
 });
 
 async function buildProjectCards() {
@@ -193,6 +178,14 @@ function toggleProjectView() {
         displayInTerminal(welcomeMsg, false, terminalTypeSpeed);
         setTimeout( () => {
             displayInTerminal(prompt, true)
+
+            terminal.style.cursor = 'text';     // indicate terminal is a text input area
+            // add click to focus on terminal
+            terminal.addEventListener('click', () => {
+                if (currentInput) currentInput.focus();
+                
+                placeCursorAtEnd(currentInput)
+            });
         }, terminalLoadTime);
     }
 
@@ -639,11 +632,17 @@ function buildPath() {
 }
 
 async function displayProjects(user, entries) {
-    repos = await findUserRepos(username);      // find all of user's public repos
+    // if repos is undefined or current user has changed
+    if (!repos || repos[0].owner.login != user ) {
+        repos = await findUserRepos(username);      // find all of user's public repos
+    }
 
-    repos.forEach(repo => {
-        entries.push(repo.name);        // replace subdirectories with public repos
-    })
+    // if repos is defined
+    if (repos) {
+        repos.forEach(repo => {
+            entries.push(repo.name);        // replace subdirectories with public repos
+        })
+    }
 }
 
 function reveal(element) {

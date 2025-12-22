@@ -1,4 +1,6 @@
 const baseUrl = "https://api.github.com/";
+const version = "1.0.0";
+
 const users = ['iMarcraft', 'mtlaguerre'];
 const externalUsers = [];
 
@@ -12,7 +14,6 @@ let firstTimeToggle = true;
 const terminal = document.getElementById('terminal-window');
 const terminalLoadTime = 3500;
 const terminalTypeSpeed = 45;
-const version = "1.0.0";
 const welcomeMsg = `Welcome to my portfolio [Version ${version}]`;
 
 let currentInput = null;
@@ -50,23 +51,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     // prevent form submit reloads
     terminal.addEventListener('submit', (e) => e.preventDefault());
-    
-    setTimeout(() => {
         
-        // Make the terminal container clickable to focus the active input
-        const terminalWindow = document.getElementById('terminal-window');
-        if (terminalWindow) {
-            terminalWindow.addEventListener('click', () => {
-                if (currentInput) currentInput.focus();
-                else displayInTerminal(prompt, true);
+    // Make the terminal container clickable to focus the active input
+    const terminalWindow = document.getElementById('terminal-window');
+    if (terminalWindow) {
+        terminalWindow.addEventListener('click', () => {
+            if (currentInput) currentInput.focus();
 
-                placeCursorAtEnd(currentInput)
-            });
-    
-            // indicate this is a text input area
-            terminalWindow.style.cursor = 'text';
-        }
-    }, terminalLoadTime * 1.5)
+            placeCursorAtEnd(currentInput)
+            
+        });
+        
+        // indicate this is a text input area
+        terminalWindow.style.cursor = 'text';
+    }
 });
 
 async function buildProjectCards() {
@@ -148,6 +146,19 @@ function toggleProjectView() {
     projectCardView.style.display = projectCardView.style.display === 'none' ? 'block' : 'none';
     projectTerminalView.style.display = projectTerminalView.style.display === 'none' ? 'block' : 'none';
     
+    // if project cards showing
+    if (projectCardView.style.display === 'block') {
+        console.log('User:', username);
+        console.log('Showing Cards');
+        console.log('bool result:', !users.includes(username))
+        // if not my users
+        if (!users.includes(username)) {
+            document.getElementById('projects-p').innerText = 'Wait a minute... who\'s work is that?!';
+        }
+        else
+            document.getElementById('projects-p').innerText = 'Check out some of my work below!'
+    }
+
     if (firstTimeToggle) {
         firstTimeToggle = false;
         displayInTerminal(welcomeMsg, false, terminalTypeSpeed);
@@ -155,12 +166,13 @@ function toggleProjectView() {
             displayInTerminal(prompt, true)
         }, terminalLoadTime);
     }
+
 }
 
-function displayInTerminal(text, isPrompt = false, typeSpeed = 0) {
+async function displayInTerminal(text, isPrompt = false, typeSpeed = 0) {
     
     let parentElem = document.createElement('div');
-    parentElem.className = 'd-flex position-relative align-items-start flex-wrap mb-1';
+        parentElem.className = 'd-flex position-relative align-items-start flex-wrap mb-1';
     
     let promptElem = document.createElement('span');
     
@@ -182,9 +194,8 @@ function displayInTerminal(text, isPrompt = false, typeSpeed = 0) {
         terminal.appendChild(parentElem);
         
         currentInput = inputField;
-        inputField.focus();
+        currentInput.focus();
         placeCursorAtEnd(inputField);
-        // scrollToBottom();
         
         // Handle Enter: echo command and create new prompt line
         inputField.addEventListener('keydown', async (e) => {
@@ -386,8 +397,6 @@ function displayInTerminal(text, isPrompt = false, typeSpeed = 0) {
                 }
             }
             
-            // clear, echo, cd, ls, cat
-            
             if (e.key === 'Enter') {
                 e.preventDefault();
                 const rawInput = inputField.textContent.slice(prompt.length);
@@ -446,25 +455,35 @@ function displayInTerminal(text, isPrompt = false, typeSpeed = 0) {
     } else {
         parentElem.appendChild(promptElem);
         terminal.appendChild(parentElem);
-        
-        typeLoadText(text, promptElem, typeSpeed);
+
+        if (typeSpeed > 0) {
+            await typeLoadText(text, promptElem, typeSpeed);
+        }
+        else {
+            promptElem.textContent = text;
+            scrollToBottom();
+        }
     }
 }
 
 function typeLoadText(text, promptElem, speed) {
     
-    let i = 0; // initialize index
-    
-    let typingInterval = setInterval(() => {
-        if (i < text.length) {
-            promptElem.textContent += text.charAt(i++); // add one character at a time
-            scrollToBottom();
-        }
-        else {
-            clearInterval(typingInterval); // stop the interval
-            scrollToBottom();
-        }
-    }, speed);
+    return new Promise(resolve => {
+
+        let i = 0; // initialize index
+        
+        let typingInterval = setInterval(() => {
+            if (i < text.length) {
+                promptElem.textContent += text.charAt(i++); // add one character at a time
+                scrollToBottom();
+            }
+            else {
+                clearInterval(typingInterval); // stop the interval
+                scrollToBottom();
+                resolve();  // typing finished
+            }
+        }, speed);
+    });
 }
 
 function scrollToBottom() {

@@ -3,12 +3,13 @@ const users = ['iMarcraft', 'mtlaguerre'];
 
 let username = users[0];
 
+let repos = [];
 let numOfRepos = 2; // Number of repositories to display
 let firstTimeToggle = true;
 
 // terminal variables
 const terminal = document.getElementById('terminal-window');
-const terminalLoadTime = 3000;
+const terminalLoadTime = 3500;
 const terminalTypeSpeed = 45;
 const version = "1.0.0";
 const welcomeMsg = `Welcome to my portfolio [Version ${version}]`;
@@ -125,8 +126,8 @@ function addProjectCard(repoInfo, repoImage) {
     `<img src="${repoImage}" alt="...">
     <div class="card-body">
     <h5 class="card-title">${repoInfo.name}</h5>
-    <p class="card-text">${repoInfo.description}</p>
-    <a href="${repoInfo.html_url}" class="btn btn-primary">Go to repo</a>
+    <p class="card-text pb-4">${repoInfo.description}</p>
+    <a href="${repoInfo.html_url}" class="btn btn-primary position-absolute start-0 bottom-0 ms-3 mb-2">Go to repo</a>
     </div>
     `;
     
@@ -206,19 +207,30 @@ function displayInTerminal(text, isPrompt, typeSpeed = 0) {
                 },
                 'ls' : {
                     argSize : 1,
-                    action : (arg) => {
+                    action : async (arg) => {
                         if (arg) {
-                            if (typeof cwd !== 'object' || cwd == null) {
+                            if (isDirectory) {
                                 displayInTerminal('Not a directory', false);
                             }
                             else {
-                                const entries = Object.keys(cwd);
+                                let entries = Object.keys(cwd);
                                 displayInTerminal(entries.join(' '), false);
                             }
                         }
                         else {
-                            const entries = Object.keys(cwd);
-                                displayInTerminal(entries.join(' '), false);
+                            let entries = Object.keys(cwd);
+                            
+                            // if in projects
+                            if (dir[dir.length-1] == 'Projects') {
+                                repos = await findUserRepos(dir[1]);      // find all of user's public repos
+                                
+                                repos.forEach(repo => {
+                                    entries.push(repo.name);
+                                })
+                            }
+
+                            displayInTerminal(entries.join(' '), false);
+
                         }
                     }
                 },
@@ -232,8 +244,7 @@ function displayInTerminal(text, isPrompt, typeSpeed = 0) {
                                     // go back one directory
                                     removeFromPrompt();
     
-                                    cwd = resolveCwd();
-                                    console.log('new cwd: ', cwd);
+                                    cwd = resolveCwd(); // update current working directory pointer
                                 }
                             }
                             else {
@@ -281,7 +292,7 @@ function displayInTerminal(text, isPrompt, typeSpeed = 0) {
                         staticLine.textContent = prompt + rawInput;
                     }
                     
-                    console.log('args: ', args);
+                    // console.log('args: ', args);
                     cmd.action(args[cmd.argSize > 0 ? cmd.argSize - 1 : null]);   // perform command action with passed arguments
                 }
                 else {
@@ -411,7 +422,7 @@ function addToPrompt(nextDir) {
     }
     
     dir.push(nextDir);              // add next directory
-
+    
     buildPrompt(drive, dir);        // build the prompt
 }
 
@@ -435,7 +446,6 @@ function buildPrompt(drive, dirArray) {
 function resolveCwd() {
     let current = path[drive];
     for (const part of dir) {
-        console.log('current: ', current);
         current = current[part];
     }
     return current;
@@ -443,4 +453,15 @@ function resolveCwd() {
 
 function isDirectory(node) {
     return typeof node === 'object' && node !== null;
+}
+
+async function findUserRepos(user) {
+
+    let response = await fetch(baseUrl + 'users/' + user + '/repos');
+    if (!response.ok)
+        throw new Error(`HTTP error! status: ${response.status}`);
+
+    let data = await response.json();
+    
+    return data;
 }

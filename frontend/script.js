@@ -46,8 +46,7 @@ buildDefaultPrompt();
 
 document.addEventListener("DOMContentLoaded", async () => {
     
-    notify403({url: 'TEST://Your-Neck'});
-    // buildProjectCards(); // toggle during development (prevent reaching api limit, figure caching for better experience)
+    buildProjectCards(); // toggle during development (prevent reaching api limit, figure caching for better experience)
 
     // set observer for revealing hidden elements when in sight
     setTimeout(() => {

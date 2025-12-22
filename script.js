@@ -46,18 +46,39 @@ buildDefaultPrompt();
 
 document.addEventListener("DOMContentLoaded", async () => {
     
-    repos = await findUserRepos(username);  // find default user's repos
-    buildProjectCards();
+    buildProjectCards(); // toggle during development (prevent reaching api limit, figure caching for better experience)
+
+    // set observer for revealing hidden elements when in sight
+    setTimeout(() => {
+        const observer = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        reveal(entry.target);
+                        // observer.unobserve(entry.target);       // animate once
+                    }
+                })
+            },
+            { 
+                threshold: 0.2 // trigger when 20% visible
+            }
+        );
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+    }, 2000);
+    
     
     // prevent form submit reloads
     terminal.addEventListener('submit', (e) => e.preventDefault());
-        
+    
     // Make the terminal container clickable to focus the active input
     const terminalWindow = document.getElementById('terminal-window');
     if (terminalWindow) {
         terminalWindow.addEventListener('click', () => {
             if (currentInput) currentInput.focus();
-
+            
             placeCursorAtEnd(currentInput)
             
         });
@@ -65,6 +86,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         // indicate this is a text input area
         terminalWindow.style.cursor = 'text';
     }
+
+    // reveal(document.getElementById('skills-container'));
 });
 
 async function buildProjectCards() {
@@ -615,4 +638,8 @@ async function displayProjects(user, entries) {
     repos.forEach(repo => {
         entries.push(repo.name);        // replace subdirectories with public repos
     })
+}
+
+function reveal(element) {
+    element.classList.add('in-view');
 }

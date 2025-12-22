@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marcus' Portfolio</title>
+    <title>Portfolio | Marcus Laguerre</title>
     <meta name="description"
     content="An interactive webpage showcasing Marcus' skills and projects that endorse those skills.">
     <meta name="keywords" content="portfolio, web dev, full stack, developer, web portfolio, Marcus, Laguerre, Marcus Laguerre">
@@ -11,22 +11,13 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
-    <!-- Terminal styles -->
-    <style>
-    /* Keep only monospace font and hide input focus ring */
-    #terminal-window {
-      font-family: 'Courier New', Courier, monospace;
-    }
-    #terminal-form .input:focus {
-      outline: none;
-      box-shadow: none;
-    }
-    </style>
-
     <!-- JavaScript -->
     <script src="script.js" defer></script>
+    
+    <!-- Custom CSS -->
+    <link href="styles.css" rel="stylesheet">
 </head>
-<body class="container bg-body-secondary d-grid gap-3 mt-3">
+<body class="container bg-body-secondary d-grid gap-3 mt-3 overflow-x-hidden">
 
     <!-- Header -->
     <header class="row">
@@ -79,7 +70,7 @@
     </section>
 
     <!-- Projects -->
-    <section class="row rounded bg-body p-4" id="project-cards">
+    <section class="row rounded bg-body p-4" id="projects-container">
 
         <button class="btn position-absolute opacity-25" style="width: 10%; font-size: small;" onclick="toggleProjectView()" id="project-view-button">Toggle View</button>
         
@@ -89,7 +80,7 @@
 
         <div class="container" id="project-cards-container">
 
-            <section class="row text-center">
+            <section class="row text-center mb-5">
                 <p id="projects-p">Check out some of my work below!</p>
             </section>
     
@@ -114,11 +105,59 @@
         </div>
     </section>
     
-    <!-- Skills & Experience -->
-    <section class="row rounded bg-body">
+    <!-- Skills (icons) & Experience -->
+    <section class="row rounded bg-body position-relative">
+
+        <!-- Skills -->
+        <section id="skills-container" class="row mx-auto text-center border position-absolute reveal">
+            <h3 class="mb-4">Familiars</h3>
+            <!-- Languages (HTML5, CSS, Java, JavaScript, C#, C++... ) -->
+            <section class="row">
+                <ul class=" col-4 list-inline mx-auto">
+                    <li class="list-inline-item">C#</li>
+                    <li class="list-inline-item">C++</li>
+                    <li class="list-inline-item">CSS</li>
+                    <li class="list-inline-item">HTML5</li>
+                    <li class="list-inline-item">Java</li>
+                    <li class="list-inline-item">JavaScript</li>
+                </ul>
+            </section>
+            <!-- Databases (PostgreSQL, mySQL, MongoDB...) -->
+            <section class="row">
+                <ul class="col-4 list-inline mx-auto">
+                    <li class="list-inline-item">MySQL</li>
+                    <li class="list-inline-item">MongoDB</li>
+                    <li class="list-inline-item">PostgreSQL</li>
+                </ul>
+            </section>
+            <!-- Frameworks (React) -->
+            <section class="row">
+                <ul class="col-4 list-inline mx-auto">
+                    <li class="list-inline-item">React</li>
+                </ul>
+            </section>
+            <!-- Tools (AWS, Vercel, Figma, Git) -->
+            <section class="row">
+                <ul class="col-4 list-inline mx-auto">
+                    <li class="list-inline-item">AWS</li>
+                    <li class="list-inline-item">Figma</li>
+                    <li class="list-inline-item">Git</li>
+                    <li class="list-inline-item">Vercel</li>
+                </ul>
+            </section>
+            <!-- APIs (GitHub, Stripe... Discord?) -->
+            <section class="row">
+                <ul class="col-4 list-inline mx-auto">
+                    <li class="list-inline-item">GitHub</li>
+                    <li class="list-inline-item">Stripe</li>
+                </ul>
+            </section>
+        </section>
+        <!-- Experience -->
+            <!-- Resume (but Web-styled, ofc..) -->
     </section>
 
-    <!-- Socials -->
+    <!-- Socials ("Connect with Marcus") -->
     <section class="row rounded bg-body">
     </section>
 

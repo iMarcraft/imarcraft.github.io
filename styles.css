@@ -1,0 +1,23 @@
+#terminal-window {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+#terminal-form .input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateX(50%);
+    transition: opacity 1.2s ease, transform 0.9s ease-out;
+}
+
+.reveal.in-view {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+#projects-container {
+    padding-bottom: 10%;
+}

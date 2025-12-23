@@ -37,10 +37,10 @@
         <nav class="col-6 container bg-body rounded">
             
             <ul class="nav my-3">
-                <li class="nav-item flex-fill text-center"><a href="#" class="nav-link text-uppercase">Marcus</a></li>
-                <li class="nav-item flex-fill text-center"><a href="#" class="nav-link text-uppercase">Projects</a></li>
-                <li class="nav-item flex-fill text-center"><a href="#" class="nav-link text-uppercase disabled">Experience</a></li>
-                <li class="nav-item flex-fill text-center"><a href="#" class="nav-link text-uppercase">Socials</a></li>
+                <li class="nav-item flex-fill text-center"><a href="#about-container" class="nav-link text-uppercase">Marcus</a></li>
+                <li class="nav-item flex-fill text-center"><a href="#projects-container" class="nav-link text-uppercase">Projects</a></li>
+                <li class="nav-item flex-fill text-center"><a href="#experience-container" class="nav-link text-uppercase disabled">Experience</a></li>
+                <li class="nav-item flex-fill text-center"><a href="#socials-container" class="nav-link text-uppercase">Socials</a></li>
             </ul>
             
         </nav>
@@ -48,7 +48,7 @@
     </header>
 
     <!-- About -->
-    <section class="row rounded bg-body px-4">
+    <section id="about-container" class="row rounded bg-body px-4">
 
         <div class="col mt-5 z-1">
             <h4>It's me, Marcus!</h4>
@@ -106,59 +106,65 @@
     </section>
     
     <!-- Skills (icons) & Experience -->
-    <section class="row rounded bg-body position-relative">
+    <section id="experience-container" class="row rounded bg-body position-relative">
 
         <!-- Skills -->
-        <section id="skills-container" class="row mx-auto text-center border position-absolute reveal">
+        <section id="skills-container" class="row mx-auto text-center position-absolute reveal my-5">
             <h3 class="mb-4">Familiars</h3>
             <!-- Languages (HTML5, CSS, Java, JavaScript, C#, C++... ) -->
             <section class="row">
-                <ul class=" col-4 list-inline mx-auto">
-                    <li class="list-inline-item">C#</li>
-                    <li class="list-inline-item">C++</li>
-                    <li class="list-inline-item">CSS</li>
-                    <li class="list-inline-item">HTML5</li>
-                    <li class="list-inline-item">Java</li>
-                    <li class="list-inline-item">JavaScript</li>
+                <ul class=" col-5 list-inline mx-auto">
+                    <li class="list-inline-item"><img id="cs-icon" src="" alt="C# icon"></li>
+                    <li class="list-inline-item"><img id="cpp-icon" src="" alt="C++ icon"></li>
+                    <li class="list-inline-item"><img id="css-icon" src="" alt="CSS icon"></li>
+                    <li class="list-inline-item"><img id="html-icon" src="" alt="HTML icon"></li>
+                    <li class="list-inline-item"><img id="java-icon" src="" alt="Java icon"></li>
+                    <li class="list-inline-item"><img id="javascript-icon" src="" alt="JavaScript icon"></li>
                 </ul>
             </section>
             <!-- Databases (PostgreSQL, mySQL, MongoDB...) -->
             <section class="row">
-                <ul class="col-4 list-inline mx-auto">
-                    <li class="list-inline-item">MySQL</li>
-                    <li class="list-inline-item">MongoDB</li>
-                    <li class="list-inline-item">PostgreSQL</li>
+                <ul class="col-5 list-inline mx-auto">
+                    <li class="list-inline-item"><img id="mysql-icon" src="" alt="MySQL icon"></li>
+                    <li class="list-inline-item"><img id="mongodb-icon" src="" alt="MongoDB icon"></li>
+                    <li class="list-inline-item"><img id="postgres-icon" src="" alt="PostgreSQL icon"></li>
                 </ul>
             </section>
             <!-- Frameworks (React) -->
             <section class="row">
-                <ul class="col-4 list-inline mx-auto">
-                    <li class="list-inline-item">React</li>
+                <ul class="col-5 list-inline mx-auto">
+                    <li class="list-inline-item"><img id="react-icon" src="" alt="React icon"></li>
+                    <li class="list-inline-item"><img id="nodejs-icon" src="" alt="NodeJS icon"></li>
                 </ul>
             </section>
             <!-- Tools (AWS, Vercel, Figma, Git) -->
             <section class="row">
-                <ul class="col-4 list-inline mx-auto">
-                    <li class="list-inline-item">AWS</li>
-                    <li class="list-inline-item">Figma</li>
-                    <li class="list-inline-item">Git</li>
-                    <li class="list-inline-item">Vercel</li>
+                <ul class="col-5 list-inline mx-auto">
+                    <li class="list-inline-item"><img id="aws-icon" src="" alt="AWS icon"></li>
+                    <li class="list-inline-item"><img id="figma-icon" src="" alt="Figma icon"></li>
+                    <li class="list-inline-item"><img id="git-icon" src="" alt="Git icon"></li>
+                    <li class="list-inline-item"><img id="vercel-icon" src="" alt="Vercel icon"></li>
                 </ul>
             </section>
             <!-- APIs (GitHub, Stripe... Discord?) -->
             <section class="row">
-                <ul class="col-4 list-inline mx-auto">
-                    <li class="list-inline-item">GitHub</li>
-                    <li class="list-inline-item">Stripe</li>
+                <ul class="col-5 list-inline mx-auto">
+                    <li class="list-inline-item"><img id="github-icon" src="" alt="GitHub icon"></li>
+                    <li class="list-inline-item"><img id="discord-icon" src="" alt="Discord icon"></li>
+                    <!-- <li class="list-inline-item"><img id="-icon" src="" alt="Stripe icon"></li> -->
                 </ul>
             </section>
         </section>
+
         <!-- Experience -->
+        <section class="row">
+            
+        </section>
             <!-- Resume (but Web-styled, ofc..) -->
     </section>
 
     <!-- Socials ("Connect with Marcus") -->
-    <section class="row rounded bg-body">
+    <section id="socials-container" class="row rounded bg-body">
     </section>
 
     <!-- Footer -->

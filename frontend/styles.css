@@ -10,7 +10,7 @@
 .reveal {
     opacity: 0;
     transform: translateX(50%);
-    transition: opacity 1.2s ease, transform 0.9s ease-out;
+    transition: opacity 1.5s ease, transform 0.7s ease-out;
 }
 
 .reveal.in-view {

@@ -1,6 +1,7 @@
 const baseUrl = "https://api.github.com/";
 const BACKEND_URL = "https://error-monitor.fly.dev";
 const version = "1.0.0";
+let theme = 'dark';
 
 const users = ['iMarcraft', 'mtlaguerre'];
 const externalUsers = [];
@@ -43,10 +44,16 @@ let cwd = path[drive];
 
 buildDefaultPrompt();
 
+const icons = [
+    'cs', 'cpp', 'css', 'html', 'java', 'javascript', 'mysql', 'mongodb', 'postgres',
+    'react', 'nodejs', 'aws', 'figma', 'git', 'vercel', 'github', 'discord'
+];
 
-document.addEventListener("DOMContentLoaded", async () => {
+
+document.addEventListener("DOMContentLoaded", () => {
     
     buildProjectCards(); // toggle during development (prevent reaching api limit, figure caching for better experience)
+    loadIcons();
 
     // set observer for revealing hidden elements when in sight
     setTimeout(() => {
@@ -162,9 +169,7 @@ function toggleProjectView() {
     
     // if project cards showing
     if (projectCardView.style.display === 'block') {
-        console.log('User:', username);
-        console.log('Showing Cards');
-        console.log('bool result:', !users.includes(username))
+
         // if not my users
         if (!users.includes(username)) {
             document.getElementById('projects-p').innerText = 'Wait a minute... who\'s work is that?!';
@@ -662,4 +667,13 @@ async function notify403(details) {
   } catch (err) {
     console.error('Failed to notify backend', err);
   }
+}
+
+function loadIcons() {
+    icons.forEach(icon => {
+        const img = document.getElementById(icon + '-icon')
+        if (!img) return;
+        
+        img.src = `https://skillicons.dev/icons?i=${icon}${theme ? '&theme='+theme : ''}`;
+    })
 }

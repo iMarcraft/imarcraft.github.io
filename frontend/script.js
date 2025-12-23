@@ -46,8 +46,9 @@ buildDefaultPrompt();
 
 const icons = [
     'cs', 'cpp', 'css', 'html', 'java', 'javascript', 'mysql', 'mongodb', 'postgres',
-    'react', 'nodejs', 'aws', 'figma', 'git', 'vercel', 'github', 'discord'
+    'react', 'nodejs', 'aws', 'figma', 'git', 'vercel', 'github', 'discord', 'docker'
 ];
+const iconsPerLine = 9;
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -670,10 +671,17 @@ async function notify403(details) {
 }
 
 function loadIcons() {
+    let src = "https://skillicons.dev/icons?i=";
+
     icons.forEach(icon => {
-        const img = document.getElementById(icon + '-icon')
-        if (!img) return;
-        
-        img.src = `https://skillicons.dev/icons?i=${icon}${theme ? '&theme='+theme : ''}`;
-    })
+        src += icons[icons.length - 1] !== icon ? `${icon},` : `${icon}&perline=${iconsPerLine}${theme ? '&theme='+theme : ''}`;
+    });
+
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = "The collection of software icons that Marcus has experience with!"
+    img.classList.add("row", "mx-auto", "mt-3");
+
+    document.getElementById('skills-section').children[0].appendChild(img);
+
 }

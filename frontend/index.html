@@ -20,67 +20,74 @@
 <body class="container bg-body-secondary d-grid gap-3 mt-3 overflow-x-hidden">
 
     <!-- Header -->
-    <header class="row">
-        <div class="col-6">
-            <div class="row">
-                <!-- Page Title -->
-                <h3 class="h3">Marcus' Portfolio</h3>
-                <!-- <h3 class="h3">🚧UNDERGOING CONSTRUCTION🚧</h3> -->
+    <header class="container">
+        
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <!-- Page Title -->
+                    <h3 class="h3">Marcus' Portfolio</h3>
+                    <!-- <h3 class="h3">🚧UNDERGOING CONSTRUCTION🚧</h3> -->
+                </div>
+                <div class="row">
+                    <!-- Expertise -->
+                    <p>Title: <span class="bg-body rounded px-2 py-1">Full Stack Software Engineer</span></p>
+                </div>
             </div>
-            <div class="row">
-                <!-- Expertise -->
-                <p>Title: <span class="bg-body rounded px-2 py-1">Full Stack Software Engineer</span></p>
-            </div>
+    
+            <!-- Nav -->
+            <nav class="col-6 bg-body rounded">
+                
+                <ul class="nav my-3">
+                    <li class="nav-item flex-fill text-center"><a href="#about-container" class="nav-link text-uppercase">Marcus</a></li>
+                    <li class="nav-item flex-fill text-center"><a href="#projects-container" class="nav-link text-uppercase">Projects</a></li>
+                    <li class="nav-item flex-fill text-center"><a href="#experience-container" class="nav-link text-uppercase">Experience</a></li>
+                    <li class="nav-item flex-fill text-center"><a href="#socials-container" class="nav-link text-uppercase">Socials</a></li>
+                    <li class="nav-item flex-fill text-center"><a href="#connect-container" class="nav-link text-uppercase disabled">Connect</a></li>
+                </ul>
+                
+            </nav>
         </div>
-
-        <!-- Nav -->
-        <nav class="col-6 container bg-body rounded">
-            
-            <ul class="nav my-3">
-                <li class="nav-item flex-fill text-center"><a href="#about-container" class="nav-link text-uppercase">Marcus</a></li>
-                <li class="nav-item flex-fill text-center"><a href="#projects-container" class="nav-link text-uppercase">Projects</a></li>
-                <li class="nav-item flex-fill text-center"><a href="#experience-container" class="nav-link text-uppercase disabled">Experience</a></li>
-                <li class="nav-item flex-fill text-center"><a href="#socials-container" class="nav-link text-uppercase disabled">Socials</a></li>
-            </ul>
-            
-        </nav>
+        
         
     </header>
 
     <!-- About -->
-    <section id="about-container" class="row rounded bg-body px-4">
+    <section id="about-container" class="container rounded bg-body px-4">
 
-        <div class="col mt-5 z-1">
-            <h4>It's me, Marcus!</h4>
-            <p class="mb-5">I aspire to change the world with my crafts, one project at a time. With an exceptional understanding of computer
-                science, I'm off to building no only projects, but my experience. Cheers to contributing to forming a better
-                world through technology!
-            </p>
-        </div>
-        <div class="col-3  position-relative">
-            <!-- Circle -->
-             <div class="w-100 h-100 position-absolute bottom-0 end-0 overflow-hidden z" style="min-width: 245px;">
-                 <div class="rounded-circle bg-warning-subtle border border-info-subtle border-3 position-absolute bottom-0 end-0"
-                 style="min-width:190px;width: 21vw;max-width:240px;min-height:190px;height: 21vw;max-height:240px;"></div>
-             </div>
-            <!-- Image -->
-            <img src="images/marcus.png" alt="An image of Marcus Laguerre looking off to a distance."
-            class="position-absolute bottom-0 end-0 me-3" style="min-width: 190px;width: 20vw;max-width:230px">
+        <div class="row">
+            <div class="col mt-5 z-1">
+                <h4>It's me, Marcus!</h4>
+                <p class="mb-5">I aspire to change the world with my crafts, one project at a time. With an exceptional understanding of computer
+                    science, I'm off to building no only projects, but my experience. Cheers to contributing to forming a better
+                    world through technology!
+                </p>
+            </div>
+            <div class="col-3  position-relative">
+                <!-- Circle -->
+                 <div class="w-100 h-100 position-absolute bottom-0 end-0 overflow-hidden z" style="min-width: 245px;">
+                     <div class="rounded-circle bg-warning-subtle border border-info-subtle border-3 position-absolute bottom-0 end-0"
+                     style="min-width:190px;width: 21vw;max-width:240px;min-height:190px;height: 21vw;max-height:240px;"></div>
+                 </div>
+                <!-- Image -->
+                <img src="images/marcus.png" alt="An image of Marcus Laguerre looking off to a distance."
+                class="position-absolute bottom-0 end-0 me-3" style="min-width: 190px;width: 20vw;max-width:230px">
+            </div>
         </div>
     </section>
 
     <!-- Projects -->
-    <section class="row rounded bg-body p-4" id="projects-container">
-
+    <section class="container rounded bg-body p-4" id="projects-container">
+        
         <button class="btn position-absolute opacity-25" style="width: 10%; font-size: small;" onclick="toggleProjectView()" id="project-view-button">Toggle View</button>
         
-        <section class="row text-center">
+        <section class="container text-center">
             <h3 class="pt-2">Projects</h3>
         </section>
 
         <div class="container" id="project-cards-container">
 
-            <section class="row text-center mb-5">
+            <section class="container text-center mb-5">
                 <p id="projects-p">Check out some of my work below!</p>
             </section>
     
@@ -108,46 +115,55 @@
     <!-- Experience -->
     <section id="experience-container" class="row rounded">
 
-        <!-- Skills -->
-        <section id="skills-section" class="row mx-auto text-center reveal my-5">
-            <h3 class="mb-4">Technical Skills</h3>
-            <!-- dynamics -->
-        </section>
-
-        <!-- Experience -->
-        <section id="experience-section" class="row rounded bg-body p-4">
-
-            <!-- Role -->
-            <section class="row mb-0">
-                <p class="my-0 fs-4">Full Stack Software Engineer</p>
+        <div class="col">
+            <!-- Skills -->
+            <section id="skills-section" class="text-center reveal my-5">
+                <h3 class="mb-4">Technical Skills</h3>
+                <!-- dynamics -->
             </section>
-
-            <!-- Company -->
-            <section class="row my-0">
-                <p class="my-0">SkillStorm</p>
+    
+            <!-- Experience -->
+            <section id="experience-section" class="container rounded bg-body p-4">
+    
+                <!-- Role -->
+                <section class="container mb-0">
+                    <p class="my-0 fs-4">Full Stack Software Engineer</p>
+                </section>
+    
+                <!-- Company -->
+                <section class="container my-0">
+                    <p class="my-0">SkillStorm</p>
+                </section>
+    
+                <!-- Duration -->
+                <section class="container my-0">
+                    <p class="my-0">Nov 2025 - Dec 2025 • <span style="font-weight: 700;">2 months</span></p>
+                    <p class="my-0" style="font-size: small">Remote</p>
+                </section>
+    
+                <!-- Deliverables -->
+                <ul class="ms-4">
+                    <li>Design intuitive and pleasing UIs with Java and React</li>
+                    <li>Incorporate REST principles for web development</li>
+                    <li>Build and manage servers for service communications with Spring Boot</li>
+                    <li>Create APIs and define endpoints for service requests</li>
+                    <li>Build and connect PostgreSQL database to server</li>
+                    <li>Ensure persistent data from back-end database</li>
+                </ul>
             </section>
-
-            <!-- Duration -->
-            <section class="row my-0">
-                <p class="my-0">Nov 2025 - Dec 2025 • <span style="font-weight: 700;">2 months</span></p>
-                <p class="my-0" style="font-size: small">Remote</p>
-            </section>
-
-            <!-- Deliverables -->
-            <ul class="ms-4">
-                <li>Design intuitive and pleasing UIs with Java and React</li>
-                <li>Incorporate REST principles for web development</li>
-                <li>Build and manage servers for service communications with Spring Boot</li>
-                <li>Create APIs and define endpoints for service requests</li>
-                <li>Build and connect PostgreSQL database to server</li>
-                <li>Ensure persistent data from back-end database</li>
-            </ul>
-        </section>
-            <!-- Resume (but Web-styled, ofc..) -->
+                <!-- Resume (but Web-styled, ofc..) -->
+        </div>
+        
     </section>
 
-    <!-- Socials ("Connect with Marcus") -->
-    <section id="socials-container" class="row rounded bg-body">
+    <!-- Socials -->
+    <section id="socials-container" class="container rounded bg-body position-relative p-4">
+        <h3 class="position-absolute end-0 me-4 text-secondary">Socials</h3>
+        <!-- dynamics -->
+    </section>
+
+    <!-- Connect ("Connect with Marcus") -->
+    <section id="connect-container" class="container rounded">
     </section>
 
     <!-- Footer -->

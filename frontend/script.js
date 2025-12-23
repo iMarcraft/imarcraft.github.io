@@ -1,7 +1,7 @@
 const baseUrl = "https://api.github.com/";
 const BACKEND_URL = "https://error-monitor.fly.dev";
 const version = "1.0.0";
-let theme = 'dark';
+let theme = 'light';
 
 const users = ['iMarcraft', 'mtlaguerre'];
 const externalUsers = [];
@@ -23,18 +23,6 @@ let currentInput = null;
 let path;
 buildPath();
 
-function buildUsersDir(usersArray) {
-    const usersDir = {};
-
-    usersArray.forEach(user => {
-        usersDir[user] = {
-            Projects : {}
-        };    // each user gets their own folder and a projects folder
-    });
-
-    return usersDir;
-}
-
 const defaultDrive = Object.keys(path)[0];          // "C:"
 let drive = defaultDrive;
 let prompt;
@@ -44,6 +32,7 @@ let cwd = path[drive];
 
 buildDefaultPrompt();
 
+const iconSrc = "https://skillicons.dev/icons?i=";
 const icons = [
     'html', 'css', 'cs', 'cpp', 'java', 'javascript', 'mysql', 'mongodb', 'postgres',
     'git', 'figma', 'discord', 'react', 'github', 'nodejs', 'docker', 'anaconda', 'arch',
@@ -53,11 +42,16 @@ const icons = [
 ];
 const iconsPerLine = 9;
 
+const socialIcons = ['linkedin', 'github', 'discord'];
+const socialIconSlots = [];             // available slots for dynmically setting x-positions of social icons
+const socialIconSize = 50;
+
 
 document.addEventListener("DOMContentLoaded", () => {
     
     buildProjectCards(); // toggle during development (prevent reaching api limit, figure caching for better experience)
     loadIcons();
+    loadSocials();
 
     // set observer for revealing hidden elements when in sight
     setTimeout(() => {
@@ -629,6 +623,18 @@ async function findUserRepos(user) {
     return data;
 }
 
+function buildUsersDir(usersArray) {
+    const usersDir = {};
+
+    usersArray.forEach(user => {
+        usersDir[user] = {
+            Projects : {}
+        };    // each user gets their own folder and a projects folder
+    });
+
+    return usersDir;
+}
+
 function buildPath() {
     path = {
         'C:' : {
@@ -674,7 +680,7 @@ async function notify403(details) {
 }
 
 function loadIcons() {
-    let src = "https://skillicons.dev/icons?i=";
+    let src = iconSrc;
 
     icons.forEach(icon => {
         src += icons[icons.length - 1] !== icon ? `${icon},` : `${icon}&perline=${iconsPerLine}${theme ? '&theme='+theme : ''}`;
@@ -687,4 +693,68 @@ function loadIcons() {
 
     document.getElementById('skills-section').children[0].appendChild(img);
 
+}
+
+function loadSocials() {
+    let imgSize = socialIconSize;
+    
+    // set social icon slots based on icon list
+    for (let i = 1; i <= socialIcons.length; i++ ) {
+        socialIconSlots.push(i);
+    }
+    console.log('Slots:', socialIconSlots);   // DEBUG
+
+    // set icon image based on socialIcons array
+    socialIcons.forEach(icon => {
+        let img = document.createElement('img');
+        img.src = `${iconSrc}${icon}${theme ? '&theme='+theme : ''}`;   // link to theme variable
+        img.style.width = `${imgSize}px`;
+        img.classList.add('py-2');
+
+        // randomize x-position (WITHIN SECTION)
+        let row = document.createElement('div');        // parent, for y-position
+        row.classList.add('d-flex', 'justify-content-evenly'); // 'row' forces the neighboring elements below or above
+        
+        let num = Math.floor(Math.random() * socialIconSlots.length + 1);   // generate number based on available x-positions (slots)
+        console.log('num:', num); // DEBUG
+        
+        emptySlots = buildEmptySlots();
+
+        placeIcon(socialIconSlots[num - 1], emptySlots, img, row);
+        socialIconSlots.splice(socialIconSlots.indexOf(socialIconSlots[num - 1]), 1);      // make slot unavailable (remove from picks)
+        console.log('Updated Slots:', socialIconSlots);     // DEBUG
+        
+        document.getElementById('socials-container').appendChild(row);  // add icon to screen
+    })
+
+    function buildEmptySlots() {
+        let slots = [];
+
+        for (let i = 1; i < socialIcons.length; i++) {
+            let newSlot = document.createElement('div');
+
+            slots.push(newSlot);
+        }
+
+        return slots;
+    }
+
+    function placeIcon(slotNumber, emptySlotsArray, iconEl, parentEl) {
+
+        for (let i = 1; i <= socialIcons.length; i++) {
+            // if this is the chosen slot
+            if (i === slotNumber) {
+                // place the icon here
+                parentEl.appendChild(iconEl);
+                // console.log('placing icon at slot:', i);    // DEBUG
+            }
+            else {
+                parentEl.appendChild(emptySlotsArray[emptySlotsArray.length - 1]);    // add empty slot (last slot in emptySlots)
+                emptySlotsArray.pop();                                           // remove last slot
+                // console.log('adding empty slot at slot:', i);   // DEBUG
+            }
+        }
+
+        console.log('icon setup:', parentEl.children);
+    }
 }

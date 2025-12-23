@@ -45,8 +45,11 @@ let cwd = path[drive];
 buildDefaultPrompt();
 
 const icons = [
-    'cs', 'cpp', 'css', 'html', 'java', 'javascript', 'mysql', 'mongodb', 'postgres',
-    'react', 'nodejs', 'aws', 'figma', 'git', 'vercel', 'github', 'discord', 'docker'
+    'html', 'css', 'cs', 'cpp', 'java', 'javascript', 'mysql', 'mongodb', 'postgres',
+    'git', 'figma', 'discord', 'react', 'github', 'nodejs', 'docker', 'anaconda', 'arch',
+    'arduino', 'vim', 'bash', 'debian', 'linux', 'matlab', 'maven', 'bootstrap', 'vscode',
+    'pycharm', 'npm', 'pnpm', 'py', 'raspberrypi', 'stackoverflow', 'sklearn', 'ubuntu', 'unity',
+    'visualstudio', '', '', '','vite', '', '', '', 'windows'
 ];
 const iconsPerLine = 9;
 

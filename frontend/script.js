@@ -42,7 +42,15 @@ const icons = [
 ];
 const iconsPerLine = 9;
 
-const socialIcons = ['linkedin', 'github', 'discord'];
+const socials = {
+    'platform' : {
+        'linkedin' : 'https://www.linkedin.com/in/laguerremarcus/',
+        'github' : 'https://github.com/iMarcraft',
+        'discord' : 'https://discord.com/users/vibuz'
+    }
+};
+
+const socialIcons = ['linkedin' , 'github', 'discord'];
 const socialIconSlots = [];             // available slots for dynmically setting x-positions of social icons
 const socialIconSize = 50;
 
@@ -702,12 +710,12 @@ function loadSocials() {
     for (let i = 1; i <= socialIcons.length; i++ ) {
         socialIconSlots.push(i);
     }
-    console.log('Slots:', socialIconSlots);   // DEBUG
 
     // set icon image based on socialIcons array
     socialIcons.forEach(icon => {
         let img = document.createElement('img');
         img.src = `${iconSrc}${icon}${theme ? '&theme='+theme : ''}`;   // link to theme variable
+        img.alt = icon
         img.style.width = `${imgSize}px`;
         img.classList.add('py-2');
 
@@ -716,13 +724,11 @@ function loadSocials() {
         row.classList.add('d-flex', 'justify-content-evenly'); // 'row' forces the neighboring elements below or above
         
         let num = Math.floor(Math.random() * socialIconSlots.length + 1);   // generate number based on available x-positions (slots)
-        console.log('num:', num); // DEBUG
         
         emptySlots = buildEmptySlots();
 
         placeIcon(socialIconSlots[num - 1], emptySlots, img, row);
         socialIconSlots.splice(socialIconSlots.indexOf(socialIconSlots[num - 1]), 1);      // make slot unavailable (remove from picks)
-        console.log('Updated Slots:', socialIconSlots);     // DEBUG
         
         document.getElementById('socials-container').appendChild(row);  // add icon to screen
     })
@@ -745,16 +751,16 @@ function loadSocials() {
             // if this is the chosen slot
             if (i === slotNumber) {
                 // place the icon here
-                parentEl.appendChild(iconEl);
-                // console.log('placing icon at slot:', i);    // DEBUG
+                let a = document.createElement('a');            // build link element
+                a.href = `${socials['platform'][iconEl.alt]}`;  // assign ref link by icon's alt tag
+                a.appendChild(iconEl);              // makes icon a link
+                parentEl.appendChild(a);
             }
             else {
                 parentEl.appendChild(emptySlotsArray[emptySlotsArray.length - 1]);    // add empty slot (last slot in emptySlots)
                 emptySlotsArray.pop();                                           // remove last slot
-                // console.log('adding empty slot at slot:', i);   // DEBUG
             }
         }
 
-        console.log('icon setup:', parentEl.children);
     }
 }

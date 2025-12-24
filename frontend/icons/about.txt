@@ -2,5 +2,5 @@ This favicon was generated using the following font:
 
 - Font Title: Monomaniac One
 - Font Author: undefined
-- Font Source: https://fonts.gstatic.com/s/monomaniacone/v12/4iC06K17YctZjx50EU-QlwPmcqRnqYkB5kwI.ttf
+- Font Source: https://fonts.gstatic.com/s/monomaniacone/v14/4iC06K17YctZjx50EU-QlwPmcqRnqYkB5kwI.ttf
 - Font License: undefined)

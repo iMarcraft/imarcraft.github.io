@@ -46,13 +46,15 @@ const socials = {
     'platform' : {
         'linkedin' : 'https://www.linkedin.com/in/laguerremarcus/',
         'github' : 'https://github.com/iMarcraft',
-        'discord' : 'https://discord.com/users/vibuz'
+        'discord' : 'https://discord.com/users/vibuz',
+        'twitter' : 'https://x.com/iMarcraft',
+        'stackoverflow' : 'https://stackoverflow.com/users/31848015/imarcraft'
     }
 };
 
-const socialIcons = ['linkedin' , 'github', 'discord'];
-const socialIconSlots = [];             // available slots for dynmically setting x-positions of social icons
-const socialIconSize = 50;
+const socialIcons = ['linkedin' , 'github', 'discord', 'twitter', 'stackoverflow'];
+const socialIconSlots = [];     // available slots for dynmically setting x-positions of social icons
+const socialIconSize = 80;      // pixel width of social icons
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -717,7 +719,7 @@ function loadSocials() {
         img.src = `${iconSrc}${icon}${theme ? '&theme='+theme : ''}`;   // link to theme variable
         img.alt = icon
         img.style.width = `${imgSize}px`;
-        img.classList.add('py-2');
+        // img.classList.add('py-2');
 
         // randomize x-position (WITHIN SECTION)
         let row = document.createElement('div');        // parent, for y-position
@@ -753,6 +755,7 @@ function loadSocials() {
                 // place the icon here
                 let a = document.createElement('a');            // build link element
                 a.href = `${socials['platform'][iconEl.alt]}`;  // assign ref link by icon's alt tag
+                a.target = '_blank';                // open link in a new tab
                 a.appendChild(iconEl);              // makes icon a link
                 parentEl.appendChild(a);
             }

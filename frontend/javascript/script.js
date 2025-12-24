@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTheme();
     
     buildProjectCards(); // toggle during development (prevent reaching api limit, figure caching for better experience)
-    loadIcons();
+    // loadIcons();
     loadSocials();
 
     // set observer for revealing hidden elements when in sight
@@ -446,8 +446,10 @@ async function displayInTerminal(text, isPrompt = false, typeSpeed = 0) {
                                 displayInTerminal('too many arguments light or dark bro', false, 50);
                             }
                         }
-                        else
-                            document.documentElement.setAttribute("data-bs-theme", 'dark');  // default to dark theme
+                        else{
+                            theme = 'dark';
+                            setTheme();
+                        }
                     }
                 }
             }
@@ -789,13 +791,27 @@ function loadSocials() {
 }
 
 function setTheme() {
-    element = document.getElementById('socials-container').children[0];
+    let element = document.getElementById('socials-container').children[0];
+    let parent = document.getElementById('skills-section').children[0];
+    let child = parent.children[0];
 
     if (theme === 'dark') {
         element.classList.remove("light-theme");
+
+        console.log('parent', parent);  // DEBUG
+        console.log('child', child);  // DEBUG
+
+        // update icons theme
+        child ? parent.removeChild(child) : null;
+        loadIcons();
+
     }
     else if (theme === 'light') {
         element.classList.add("light-theme");
+
+        // update icons theme
+        child ? parent.removeChild(child) : null;
+        loadIcons();
     }
 
     document.documentElement.setAttribute("data-bs-theme", theme);

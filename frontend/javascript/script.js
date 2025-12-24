@@ -87,8 +87,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 2500);
     
     
-    // prevent form submit reloads
-    terminal.addEventListener('submit', (e) => e.preventDefault());
+    terminal.addEventListener('submit', (e) => e.preventDefault());     // prevent form submit reloads
+
+    let connectForm = document.getElementById('connect-form');
+    connectForm.addEventListener('submit', (e) => {
+
+        e.preventDefault();                                             // prevent form submit reloads
+
+        let name = document.getElementById('name');
+        let email = document.getElementById('email');
+        let msg = document.getElementById('message');
+
+        // if no empty fields
+        if (name.value && email.value && msg.value)
+            sendEmails(name, email, msg);
+        else{
+            // use a toast to tell user to fill in missing fields
+            // showErrorToast('Please fill in all fields before submitting.');
+        }
+    })
 
 });
 
@@ -697,7 +714,7 @@ function reveal(element) {
 }
 
 async function notify403(details) {
-  try {
+    
     await fetch(BACKEND_URL + '/notify-403', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -706,9 +723,6 @@ async function notify403(details) {
         userAgent: navigator.userAgent
       }),
     });
-  } catch (err) {
-    console.error('Failed to notify backend', err);
-  }
 }
 
 function loadIcons() {
@@ -798,9 +812,6 @@ function setTheme() {
     if (theme === 'dark') {
         element.classList.remove("light-theme");
 
-        console.log('parent', parent);  // DEBUG
-        console.log('child', child);  // DEBUG
-
         // update icons theme
         child ? parent.removeChild(child) : null;
         loadIcons();
@@ -815,4 +826,26 @@ function setTheme() {
     }
 
     document.documentElement.setAttribute("data-bs-theme", theme);
+}
+
+function sendEmails(name, email, msg) {
+    
+    fetch(BACKEND_URL + '/connect', {
+        method: 'POST',
+        headers: { 'Content-Type' : 'application/json' },
+        body: JSON.stringify({
+            name: name.value,
+            email: email.value,
+            msg: msg.value
+        }),
+    });
+
+    // clear fields
+    name.value = '';
+    email.value = '';
+    msg.value = '';
+
+    // show the user a success message
+
+
 }

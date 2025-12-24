@@ -1,7 +1,7 @@
 const baseUrl = "https://api.github.com/";
 const BACKEND_URL = "https://error-monitor.fly.dev";
 const version = "1.0.0";
-let theme = 'light';
+let theme = 'dark';
 
 const users = ['iMarcraft', 'mtlaguerre'];
 const externalUsers = [];
@@ -58,6 +58,8 @@ const socialIconSize = 80;      // pixel width of social icons
 
 
 document.addEventListener("DOMContentLoaded", () => {
+    // set theme default to dark
+    setTheme();
     
     buildProjectCards(); // toggle during development (prevent reaching api limit, figure caching for better experience)
     loadIcons();
@@ -150,14 +152,14 @@ function addProjectCard(repoInfo, repoImage) {
     let card = document.createElement('div');
     const noDescription = "No discription yet. I'm sure they're considering it.\n -Marcus";
     
-    card.className = 'card my-2 position-relative';
+    card.className = 'card my-2 position-relative p-3 rounded-4';
     card.style.width = '30%';
     card.innerHTML = 
-    `<img src="${repoImage ?? ''}" alt="${repoInfo.name} thumbnail">
+    `<img class="rounded-4" src="${repoImage ?? ''}" alt="${repoInfo.name} thumbnail">
     <div class="card-body">
     <h5 class="card-title">${repoInfo.name}</h5>
     <p class="card-text pb-4">${repoInfo.description ?? noDescription}</p>
-    <a href="${repoInfo.html_url}" class="btn btn-primary position-absolute start-0 bottom-0 ms-3 mb-2">Go to repo</a>
+    <a href="${repoInfo.html_url}" target="_blank" class="btn btn-outline-primary position-absolute start-0 bottom-0 ms-3 mb-2">Go to repo</a>
     </div>
     `;
     
@@ -428,6 +430,24 @@ async function displayInTerminal(text, isPrompt = false, typeSpeed = 0) {
                         }
                         else
                             displayInTerminal('permissions denied');
+                    }
+                },
+                'theme' : {
+                    argSze : 1,
+                    action : (args) => {
+                        if (args) {
+                            // if 1 argument
+                            if (args.length === 1) {
+
+                                args[0] === 'light' || args[0] === 'dark' ? theme = args[0] : displayInTerminal("That's not a valid theme..");
+                                setTheme();
+                            }
+                            else {
+                                displayInTerminal('too many arguments light or dark bro', false, 50);
+                            }
+                        }
+                        else
+                            document.documentElement.setAttribute("data-bs-theme", 'dark');  // default to dark theme
                     }
                 }
             }
@@ -766,4 +786,17 @@ function loadSocials() {
         }
 
     }
+}
+
+function setTheme() {
+    element = document.getElementById('socials-container').children[0];
+
+    if (theme === 'dark') {
+        element.classList.remove("light-theme");
+    }
+    else if (theme === 'light') {
+        element.classList.add("light-theme");
+    }
+
+    document.documentElement.setAttribute("data-bs-theme", theme);
 }

@@ -1,0 +1,123 @@
+/* ===========================
+   LIGHT THEME
+   =========================== */
+[data-bs-theme="light"] {
+  /* Body backgrounds */
+  --bs-body-bg-rgb: 238, 242, 246;
+  --bs-secondary-bg-rgb: 226, 232, 240;
+  --bs-tertiary-bg-rgb: 226, 232, 240;
+  --bs-body-bg: rgba(248, 250, 252, 0.664);
+
+  /* Text colors */
+  --bs-body-color: #1f2933;
+  --bs-secondary-color: #4b5563;
+  --bs-tertiary-color: #6b7280;
+
+  /* Borders & subtle UI */
+  --bs-info-border-subtle: rgb(130, 136, 148);
+}
+
+
+/* ===========================
+   DARK THEME
+   =========================== */
+[data-bs-theme="dark"] {
+  /* Body backgrounds */
+  --bs-body-bg-rgb: 23, 50, 80;
+  --bs-secondary-bg-rgb: 5, 3, 9;
+  --bs-tertiary-bg-rgb: 17, 21, 28;
+  --bs-body-bg: rgb(17, 21, 28);
+
+  /* Text colors */
+  /* --bs-body-color: #f8fafc; */
+  /* --bs-body-color-rgb: 248, 250, 252; */
+
+  /* Borders & subtle UI */
+  --bs-info-border-subtle: rgb(17,21,28);
+}
+
+#projects-container > section:nth-child(2) > h3 {
+  background-color: rgb(var(--bs-secondary-bg-rgb));
+  min-width: 100px;
+  width: 13vw;
+  max-width: 150px;
+  border-radius: 4px;
+  margin: auto;
+  padding: 7px 0 7px 0;
+}
+
+#socials-container {
+  /* border: 1px solid var(--bs-body-bg-rgb); */
+  border: 2px solid rgb(var(--bs-body-bg-rgb), 0.4);
+}
+
+#socials-container > h3 {
+  color: rgb(var(--bs-body-bg-rgb));
+}
+
+.light-theme {
+  -webkit-text-stroke: 1px black;
+}
+
+#terminal-window {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+#terminal-form .input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateX(50%);
+    transition: opacity 1.5s ease, transform 0.7s ease-out;
+}
+
+.reveal.in-view {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+#projects-container {
+    padding-bottom: 10%;
+}
+
+.text-input, .text-area, .submit-button {
+  padding: 5px;
+  background-color: var(--bs-body-bg);
+}
+
+.text-input, .text-area {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.text-input {
+  /* padding: 7px; */
+  margin: 8px 0;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.text-area {
+  min-height: 80px;
+}
+
+.submit-button {
+  width: 100%;
+  border: none;
+  margin: 10px 0;
+  /* padding: 7px; */
+}
+
+form {
+  max-width: 700px;
+}
+
+@media (min-width: 993px) {
+  .connect-text {
+    font-size: 85px;
+  }
+}

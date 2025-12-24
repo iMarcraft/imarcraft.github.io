@@ -10,12 +10,12 @@
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link href="../css/styles.css" rel="stylesheet">
 
     <!-- JavaScript -->
-    <script src="script.js" defer></script>
+    <script src="../javascript/script.js" defer></script>
     
-    <!-- Custom CSS -->
-    <link href="styles.css" rel="stylesheet">
 </head>
 <body class="container bg-body-secondary d-grid gap-3 mt-3 overflow-x-hidden">
 
@@ -66,11 +66,11 @@
             <div class="col-3  position-relative">
                 <!-- Circle -->
                  <div class="w-100 h-100 position-absolute bottom-0 end-0 overflow-hidden z" style="min-width: 245px;">
-                     <div class="rounded-circle bg-warning-subtle border border-info-subtle border-3 position-absolute bottom-0 end-0"
+                     <div class="rounded-circle bg-body-secondary border border-info-subtle border-1 position-absolute bottom-0 end-0"
                      style="min-width:190px;width: 21vw;max-width:240px;min-height:190px;height: 21vw;max-height:240px;"></div>
                  </div>
                 <!-- Image -->
-                <img src="images/marcus.png" alt="An image of Marcus Laguerre looking off to a distance."
+                <img src="../images/marcus.png" alt="An image of Marcus Laguerre looking off to a distance."
                 class="position-absolute bottom-0 end-0 me-3" style="min-width: 190px;width: 20vw;max-width:230px">
             </div>
         </div>
@@ -82,7 +82,7 @@
         <button class="btn position-absolute opacity-25" style="width: 10%; font-size: small;" onclick="toggleProjectView()" id="project-view-button">Toggle View</button>
         
         <section class="container text-center">
-            <h3 class="pt-2">Projects</h3>
+            <h3>Projects</h3>
         </section>
 
         <div class="container" id="project-cards-container">
@@ -157,8 +157,8 @@
     </section>
 
     <!-- Socials -->
-    <section id="socials-container" class="container rounded bg-body position-relative p-2">
-        <h3 class="position-absolute end-0 me-4 text-secondary">Socials</h3>
+    <section id="socials-container" class="container rounded position-relative p-2">
+        <h3 class="position-absolute end-0 me-4">Socials</h3>
         <!-- dynamics -->
     </section>
 
@@ -170,7 +170,7 @@
             </div>
     
             <div class="col-sm">
-                <form class="bg-body-tertiary rounded p-3 ">
+                <form class="bg-body-tertiary rounded p-4 ">
         
                     <div class="row">
                         <div class="col-6">
@@ -197,7 +197,7 @@
                     <div class="row">
                         <div class="col">
                             <!-- Submit Button -->
-                            <input type="submit" class="submit-button rounded" value="Submit">
+                            <input type="submit" class="submit-button rounded bg-body" value="Submit">
                         </div>
                     </div>
         

@@ -59,25 +59,22 @@
     </header>
 
     <!-- About -->
-    <section id="about-container" class="container rounded bg-body px-4">
+    <section id="about-container" class="container rounded bg-body px-4 position-relative">
 
         <div class="row">
-            <div class="col mt-5 z-1">
+            <div class="col-9 mt-5 z-1">
                 <h4>It's me, Marcus!</h4>
                 <p class="mb-5">I aspire to change the world with my crafts, one project at a time. With an exceptional understanding of computer
                     science, I'm off to building no only projects, but my experience. Cheers to contributing to forming a better
                     world through technology!
                 </p>
             </div>
-            <div class="col-3  position-relative">
-                <!-- Circle -->
-                 <div class="w-100 h-100 position-absolute bottom-0 end-0 overflow-hidden z" style="min-width: 245px;">
-                     <div class="rounded-circle bg-body-secondary border border-info-subtle border-1 position-absolute bottom-0 end-0"
-                     style="min-width:190px;width: 21vw;max-width:240px;min-height:190px;height: 21vw;max-height:240px;"></div>
+            <div class="col image-wrapper">
+                <div class="circle-mask">
+                     <div id="about-circle" class="rounded-circle bg-body-secondary border border-info-subtle border-1 position-absolute bottom-0 end-0"></div>
                  </div>
-                <!-- Image -->
                 <img src="frontend/images/marcus.png" alt="An image of Marcus Laguerre looking off to a distance."
-                class="position-absolute bottom-0 end-0 me-3" style="min-width: 190px;width: 20vw;max-width:230px">
+                class="position-absolute about-img">
             </div>
         </div>
     </section>

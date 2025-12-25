@@ -44,6 +44,57 @@ html > * {
   font-style: normal;
 }
 
+.container {
+  width: 90%;
+}
+
+/* Profile Depth */
+/* ======================= */
+.image-wrapper {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 40%;
+  height: 100%;
+}
+
+/* Cirlce is clipped */
+.circle-mask {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 68%;
+}
+
+
+#about-circle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  min-width: 190px;
+  width: 21vw;
+  max-width: 240px;
+  min-height: 190px;
+  height: 21vw;
+  max-height: 240px;
+  border-radius: 50%;
+  background: var(--bs-secondary-bg-rgb);
+}
+
+/* Image is NOT clipped */
+.about-img {
+  min-width: 190px;
+  width: 20vw;
+  max-width: 230px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: 1rem;
+}
+/* ======================= */
+
 #projects-container > section:nth-child(2) > h3 {
   background-color: rgb(var(--bs-secondary-bg-rgb));
   min-width: 100px;
@@ -124,8 +175,90 @@ form {
   max-width: 700px;
 }
 
+/* Phones */
+@media (max-width: 480px) {}
+
+/* Large phones */
+@media (max-width: 767px) {
+  #about-circle-container {
+    width: 180px;
+    height: 100%;
+    max-height: 68%;
+  }
+  #about-circle {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Tablets and up */
+@media (min-width: 768px) {
+
+    /* Profile Depth */
+  /* ======================= */
+  .image-wrapper {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 240px;
+    height: 100%;
+  }
+
+  /* Cirlce is clipped */
+  .circle-mask {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+  }
+
+
+  #about-circle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    min-width: 190px;
+    width: 21vw;
+    max-width: 240px;
+    min-height: 190px;
+    height: 21vw;
+    max-height: 240px;
+    border-radius: 50%;
+  }
+
+  /* Image is NOT clipped */
+  .about-img {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 1rem;
+  }
+  /* ======================= */
+}
+
+/* Desktop and up */
+@media (min-width: 1024px) {
+  
+  .card {
+    width: 30%;
+  }
+
+  .connect-text {
+    font-size: 85px;
+  }
+
+}
+
+/* @media (max-width: 992px) {
+  .card {
+    width: 30%;
+  }
+}
+
 @media (min-width: 993px) {
   .connect-text {
     font-size: 85px;
   }
-}
+} */

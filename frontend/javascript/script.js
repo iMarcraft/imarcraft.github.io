@@ -1,6 +1,6 @@
 const baseUrl = "https://api.github.com/";
 const BACKEND_URL = "https://error-monitor.fly.dev";
-const version = "1.0.0";
+const version = "1.0.1";
 let theme = 'dark';
 
 const users = ['iMarcraft', 'mtlaguerre'];
@@ -66,25 +66,23 @@ document.addEventListener("DOMContentLoaded", () => {
     loadSocials();
 
     // set observer for revealing hidden elements when in sight
-    setTimeout(() => {
-        const observer = new IntersectionObserver(
-            entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        reveal(entry.target);
-                        // observer.unobserve(entry.target);       // animate once
-                    }
-                })
-            },
-            { 
-                threshold: 0.2 // trigger when 20% visible
-            }
-        );
+    const observer = new IntersectionObserver(
+        entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    reveal(entry.target);
+                    // observer.unobserve(entry.target);       // animate once
+                }
+            })
+        },
+        { 
+            threshold: 0.2 // trigger when 20% visible
+        }
+    );
 
-        document.querySelectorAll('.reveal').forEach(el => {
-            observer.observe(el);
-        });
-    }, 2500);
+    document.querySelectorAll('.reveal').forEach(el => {
+        observer.observe(el);
+    });
     
     
     terminal.addEventListener('submit', (e) => e.preventDefault());     // prevent form submit reloads
@@ -169,8 +167,7 @@ function addProjectCard(repoInfo, repoImage) {
     let card = document.createElement('div');
     const noDescription = "No discription yet. I'm sure they're considering it.\n -Marcus";
     
-    card.className = 'card my-2 position-relative p-3 rounded-4';
-    card.style.width = '30%';
+    card.className = 'card my-2 p-3 rounded-4';
     card.innerHTML = 
     `<img class="rounded-4" src="${repoImage ?? ''}" alt="${repoInfo.name} thumbnail">
     <div class="card-body">

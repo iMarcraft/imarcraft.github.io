@@ -732,6 +732,7 @@ function loadIcons() {
     const img = document.createElement('img');
     img.src = src;
     img.alt = "The collection of software icons that Marcus has experience with!"
+    img.setAttribute("style", "min-width:70px;width:70vw;max-width:500px;");
     img.classList.add("row", "mx-auto", "mt-3");
 
     document.getElementById('skills-section').children[0].appendChild(img);

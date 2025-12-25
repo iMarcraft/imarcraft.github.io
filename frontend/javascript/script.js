@@ -1,6 +1,6 @@
 const baseUrl = "https://api.github.com/";
 const BACKEND_URL = "https://error-monitor.fly.dev";
-const version = "1.0.1";
+const version = "1.0.2";
 let theme = 'dark';
 
 const users = ['iMarcraft', 'mtlaguerre'];
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     reveal(entry.target);
-                    // observer.unobserve(entry.target);       // animate once
+                    observer.unobserve(entry.target);       // animate once
                 }
             })
         },

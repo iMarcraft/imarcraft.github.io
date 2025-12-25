@@ -1,6 +1,6 @@
 const baseUrl = "https://api.github.com/";
 const BACKEND_URL = "https://error-monitor.fly.dev";
-const version = "1.0.2";
+const version = "1.1.0";
 let theme = 'dark';
 
 const users = ['iMarcraft', 'mtlaguerre'];

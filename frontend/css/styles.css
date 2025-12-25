@@ -43,6 +43,10 @@ html > * {
   font-weight: 300;
   font-style: normal;
 }
+.position-title {
+  display: block;
+  text-align: center;
+}
 
 .container > .container {
   width: 90%;
@@ -55,7 +59,8 @@ html > * {
   position: absolute;
   bottom: 0;
   right: 0;
-  width: 40%;
+  min-width: 220px;
+  width: 40vw;
   height: 100%;
 }
 
@@ -181,8 +186,8 @@ form {
 
 /* Large phones */
 @media (max-width: 767px) {
-  #about-circle-container {
-    width: 180px;
+  .circle-mask {
+    width: 190px;
     height: 100%;
     max-height: 68%;
   }
@@ -194,23 +199,27 @@ form {
 
 /* Tablets and up */
 @media (min-width: 768px) {
+  
+  .position-title {
+    font-size: 1rem;
+    display: inline;
+  }
 
-    /* Profile Depth */
+  /* Profile Depth */
   /* ======================= */
   .image-wrapper {
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 240px;
+    width: 400px;
     height: 100%;
   }
-
+  
   /* Cirlce is clipped */
   .circle-mask {
     position: absolute;
     bottom: 0;
     right: 0;
-    overflow: hidden;
     width: 100%;
     height: 100%;
   }
@@ -220,12 +229,12 @@ form {
     position: absolute;
     bottom: 0;
     right: 0;
-    min-width: 190px;
+    min-width: 200px;
     width: 21vw;
-    max-width: 240px;
-    min-height: 190px;
+    max-width: 250px;
+    min-height: 200px;
     height: 21vw;
-    max-height: 240px;
+    max-height: 250px;
     border-radius: 50%;
   }
 

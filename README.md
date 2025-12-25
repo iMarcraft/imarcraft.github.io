@@ -44,7 +44,7 @@ cd Users
 This will position you in the 'Users' directory. To back out of a directory, use `cd ..` and continue roaming as you delight.
 
 #### Argument(s): 2
-With two arguments, you become a *true* explorer! You can switch drives that are found in the file system. The first argument must be `/D` and the second should be an existing drive letter followed by a colon.
+With two arguments, you become a *true* explorer! You can switch between drives that are found in the file system. The first argument must be `/D` and the second should be an existing drive letter followed by a colon.
 
 Example:
 ```
@@ -100,7 +100,7 @@ run ELT-RPG
 > Only project files are "executable" on this web portfolio.
 
 ### Echo 🗣️
-Echo does just what it sounds like. You can have the terminal act give you a cave-like experience. Well, it returns only once...
+Echo does just what it sounds like. You will command the terminal to give you a cave-like experience. Well, it only echos once..
 
 Examples:
 ```

@@ -19,6 +19,9 @@ theme light
 > [!IMPORTANT]
 > `theme` supports **up to 1 argument**.
 
+> [!NOTE]
+> This command is exclusively for this web portfolio; it won't work in system terminals.
+
 ### Clean Screen 🧹
 `cls` fully wipes the terminal of all previous text, while keeping you in your current working directory.
 
@@ -52,7 +55,7 @@ cd /D D:
 ```
 
 > [!IMPORTANT]
-> `cd` supports **up to 2 arguments**.
+> `cd` **requires 1 argument** and supports **up to 2 arguments**.
 
 ### Show Directories & Files 📂
 Use `dir` to view the inner contents of your **current** directory or pair with a directory name to see the **child** directory's inner contents.
@@ -85,7 +88,7 @@ mkdir mtlaguerre
 You can do something *I* think is pretty cool with that on *this* web portfolio! <sub>Hidden Features!</sub>
 
 > [!IMPORTANT]
-> `mkdir` requires and supports **1 argument**.
+> `mkdir` **requires** and supports **1 argument**.
 
 ### Open (Run) Project Files 💻
 Launching a program (project in this case) is as easy as `run` followed by the name of the project.
@@ -96,7 +99,7 @@ run ELT-RPG
 ```
 
 > [!IMPORTANT]
-> `run` requires and supports **1 argument**.
+> `run` **requires** and supports **1 argument**.  
 > Only project files are "executable" on this web portfolio.
 
 ### Echo 🗣️
@@ -112,7 +115,7 @@ Hello
 ```
 
 > [!IMPORTANT]
-> `echo` supports **1 argument**.
+> `echo` supports **1 argument**.  
 > You can pair arguments within **double** quotes, as the example shows.
 
 [^1]: Is it working?

@@ -1,5 +1,6 @@
 # Marcus' Web Portfolio
-A beautiful display of Marcus' past and present projects!
+A beautiful display of Marcus' past and present projects!  
+Check out [Marcus' Portfolio](https://imarcraft.github.io)
 
 > [!NOTE]
 > Though I think you should learn terminal commands, this is *not* an elaborate scheme to get you to learn it.

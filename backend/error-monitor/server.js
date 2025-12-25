@@ -52,9 +52,6 @@ app.post('/notify-403', async (req, res) => {
 // Endpoint frontend calls when clicking the submit button in the connect section
 app.post('/connect', async (req, res) => {
   const { name, email, msg } = req.body;    // destruct request body
-  console.log('name:', name);     // DEBUG
-  console.log('email:', email);   // DEBUG
-  console.log('message:', msg);   // DEBUG
 
   try{
     resend.emails.send({

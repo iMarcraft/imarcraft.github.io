@@ -169,7 +169,7 @@ function addProjectCard(repoInfo, repoImage) {
     
     card.className = 'card my-2 p-3 rounded-4';
     card.innerHTML = 
-    `<img class="rounded-4" src="${repoImage ?? ''}" alt="${repoInfo.name} thumbnail">
+    `<img class="rounded-4 img-fluid" src="${repoImage ?? ''}" alt="${repoInfo.name} thumbnail">
     <div class="card-body">
     <h5 class="card-title">${repoInfo.name}</h5>
     <p class="card-text pb-4">${repoInfo.description ?? noDescription}</p>

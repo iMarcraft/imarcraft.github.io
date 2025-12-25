@@ -44,8 +44,9 @@ html > * {
   font-style: normal;
 }
 
-.container {
+.container > .container {
   width: 90%;
+  padding: auto 0 auto 0;
 }
 
 /* Profile Depth */

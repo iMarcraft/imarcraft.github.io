@@ -32,7 +32,7 @@ cls
 Simple, right?
 
 > [!IMPORTANT]
-> `cls` supports **no arguments**.
+> `cls` **requires no arguments**.
 
 ### Change Directory ↗️
 What fun is a terminal if you can't browse around? You can do so with the `cd` command.

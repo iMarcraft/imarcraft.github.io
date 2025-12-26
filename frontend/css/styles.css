@@ -38,11 +38,12 @@
   --bs-info-border-subtle: rgb(17,21,28);
 }
 
-html > * {
+body > * {
   font-family: "Quantico", sans-serif;
   font-weight: 300;
   font-style: normal;
 }
+
 .position-title {
   display: block;
   text-align: center;
@@ -181,6 +182,17 @@ form {
   max-width: 700px;
 }
 
+#name, #email, #message {
+  font-size: 0.8rem;
+}
+
+footer > :first-child {
+  font-size: 1rem;
+}
+footer > :last-child {
+  font-size: 0.75rem;
+}
+
 /* Phones */
 @media (max-width: 480px) {}
 
@@ -246,6 +258,17 @@ form {
     margin-right: 1rem;
   }
   /* ======================= */
+
+  #name, #email, #message {
+    font-size: 1rem;
+  }
+
+  footer > :first-child {
+    font-size: 1.25rem;
+  }
+  footer > :last-child {
+    font-size: 1rem;
+  }
 }
 
 /* Desktop and up */
@@ -260,15 +283,3 @@ form {
   }
 
 }
-
-/* @media (max-width: 992px) {
-  .card {
-    width: 30%;
-  }
-}
-
-@media (min-width: 993px) {
-  .connect-text {
-    font-size: 85px;
-  }
-} */

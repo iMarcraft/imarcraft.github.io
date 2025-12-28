@@ -1,6 +1,6 @@
 const baseUrl = "https://api.github.com/";
 const BACKEND_URL = "https://error-monitor.fly.dev";
-const version = "1.1.3";
+const version = "1.1.4";
 let theme = 'dark';
 
 const users = ['iMarcraft', 'mtlaguerre'];
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // set theme default to dark
     setTheme();
     
-    // buildProjectCards(); // toggle during development (prevent reaching api limit, figure caching for better experience)
+    buildProjectCards(); // toggle during development (prevent reaching api limit, figure caching for better experience)
     // loadIcons();
     loadSocials();
 
@@ -122,7 +122,7 @@ function showToast(toastTypeId, msg) {
         `
         <div class="toast" id="${toastTypeId}" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
-                <img src="" class="rounded me-2" alt="...">
+                <img src="frontend/icons/favicon-32x32.png" class="rounded me-2" alt="...">
                 <strong class="me-auto">${document.title}</strong>
                 <small>Just now</small>
                 <button class="btn-close" type="button" data-bs-dismiss="toast" aria-label="Close"></button>

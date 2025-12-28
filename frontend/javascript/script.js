@@ -1,6 +1,6 @@
 const baseUrl = "https://api.github.com/";
 const BACKEND_URL = "https://error-monitor.fly.dev";
-const version = "1.1.2";
+const version = "1.1.4";
 let theme = 'dark';
 
 const users = ['iMarcraft', 'mtlaguerre'];
@@ -92,20 +92,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
         e.preventDefault();                                             // prevent form submit reloads
 
+        
         let name = document.getElementById('name');
         let email = document.getElementById('email');
         let msg = document.getElementById('message');
 
         // if no empty fields
-        if (name.value && email.value && msg.value)
+        if (name.value && email.value && msg.value) {
             sendEmails(name, email, msg);
+            
+            showToast('liveToastSuccess', 'Message successfully sent.');
+        }
         else{
             // use a toast to tell user to fill in missing fields
-            // showErrorToast('Please fill in all fields before submitting.');
+            showToast('liveToastFailed', 'Please fill in all fields before submitting.');
         }
     })
-
+    
 });
+
+function showToast(toastTypeId, msg) {
+    
+    // if toast type doesn't exist, create it
+    if (!document.getElementById(toastTypeId)) {
+        div = document.createElement('div');
+        
+        div.classList.add('toast-container', 'position-fixed', 'bottom-0', 'end-0', 'p-3');
+        div.innerHTML =
+        `
+        <div class="toast" id="${toastTypeId}" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="frontend/icons/favicon-32x32.png" class="rounded me-2" alt="...">
+                <strong class="me-auto">${document.title}</strong>
+                <small>Just now</small>
+                <button class="btn-close" type="button" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                ${msg}
+            </div>
+        </div>
+        `
+        
+        document.getElementById('body-container').appendChild(div);
+        
+    }
+
+    const liveToast = document.getElementById(toastTypeId);
+    const toast = bootstrap.Toast.getOrCreateInstance(liveToast);
+    toast.show();
+}
 
 async function buildProjectCards() {
     
@@ -842,8 +877,4 @@ function sendEmails(name, email, msg) {
     name.value = '';
     email.value = '';
     msg.value = '';
-
-    // show the user a success message
-
-
 }
